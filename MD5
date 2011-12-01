@@ -1,0 +1,6 @@
+71a9ff6df97e4e7ff25f88b315f007b5 *DESCRIPTION
+f35d47a92407a22853a43e613814c7ee *NAMESPACE
+eca9d2e99e5191aa53399524cb3dd01c *NEWS
+0ab7cf1ac7c7032144abe231296e8453 *R/setwidth.R
+b52c3d92d08754fbd7c5530a11c8a2c2 *man/setwidth-package.Rd
+d8ae00ecf698bac1a8229f902db1a9a3 *src/setwidth.c
