@@ -10,7 +10,7 @@ resized
   This package should not be used with Graphical User Interfaces, such as
   Windows RGui, RStudio, RKward, JGR, Rcmdr and other interfaces which have
   their own engine to display R output. The functions of this package only
-  work if R is compiled for Unix systems and it is running interactively in a
+  work if R is compiled for Linux systems and it is running interactively in a
   terminal emulator. The terminal emulator might have been called by a text
   editor, such as Vim, Gedit, Kate or Geany.
 }
@@ -20,7 +20,8 @@ resized
   
   \preformatted{
   options(setwidth.verbose = 1) # Print startup message
-  options(setwidth.verbose = 2) # Print width value
+  options(setwidth.verbose = 2) # Print error message when unable to set width
+  options(setwidth.verbose = 3) # Print width value
   }
  
   The package does not have any user visible R function. When it is loaded,
@@ -30,7 +31,7 @@ resized
   \samp{TERM} is either empty or \samp{"dumb"}.
 }
 \author{
-Jakson Alves de Aquino <jalvesaq@gmail.com>
+Jakson Alves de Aquino <jalvesaq@gmail.com>, with some code copied from Vim.
 }
 
 \seealso{

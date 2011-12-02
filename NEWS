@@ -1,3 +1,8 @@
+Version 0.9-4 (2011-12-02)
+
+    - Attempt to fix build error on Unix systems other that Linux (thanks to
+      Prof. Brian Ripley for suggestions).
+
 Version 0.9-3 (2011-12-01)
 
     - Initial release.

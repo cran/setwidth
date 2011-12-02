@@ -3,7 +3,8 @@
 #include <Rinternals.h>
 #include <Rinterface.h>
 
-#include <pty.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
 #include <signal.h>
 
 int setwidth_initialized = 0;
@@ -12,13 +13,25 @@ int setwidth_verbose = 0;
 
 void setwidth_Set()
 {
-    struct winsize	ws;
-    int fd = 1, columns = 0;
+    /* The code to get terminal width is from Vim source code (os_unix.c).
+     * Try to get the current window size with an ioctl(). */
 
-    /* From Vim source code (os_unix.c) */
-    /* When stdout is not a tty, use stdin for the ioctl(). */
-    if (ioctl(fd, TIOCGWINSZ, &ws) == 0)
-        columns = ws.ws_col;
+    long columns = 0;
+    char *p;
+
+# ifdef TIOCGWINSZ
+    struct winsize ws;
+    if(isatty(1))
+        if (ioctl(1, TIOCGWINSZ, &ws) == 0)
+            columns = ws.ws_col;
+# else
+#  ifdef TIOCGSIZE
+    struct ttysize ts;
+    if(isatty(1))
+        if (ioctl(1, TIOCGSIZE, &ts) == 0)
+            columns = ts.ts_cols;
+#  endif
+# endif
 
     if(columns > 0){
 
@@ -28,15 +41,16 @@ void setwidth_Set()
         SET_TYPEOF(s, LANGSXP);
         SETCAR(t, install("options"));
         t = CDR(t);
-        SETCAR(t, ScalarInteger(columns));
+        SETCAR(t, ScalarInteger((int)columns));
         SET_TAG(t, install("width"));
         eval(s, R_GlobalEnv);
         UNPROTECT(1);
 
-        if(setwidth_verbose > 1)
+        if(setwidth_verbose > 2)
             Rprintf("setwidth: %d columns\n", columns);
     } else {
-        REprintf("Error on 'setwidth' package: could not detect the terminal width.\n");
+        if(setwidth_verbose > 1)
+            REprintf("Error on 'setwidth' package: could not detect the terminal width.\n");
     }
 }
 
