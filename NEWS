@@ -1,3 +1,7 @@
+Version 1.0-0 (2012-07-04)
+
+   - Fix compiler warning (unused variable 'p').
+
 Version 0.9-4 (2011-12-02)
 
     - Attempt to fix build error on Unix systems other that Linux (thanks to

@@ -17,7 +17,6 @@ void setwidth_Set()
      * Try to get the current window size with an ioctl(). */
 
     long columns = 0;
-    char *p;
 
 # ifdef TIOCGWINSZ
     struct winsize ws;
@@ -65,7 +64,7 @@ void setwidth_Start(int *verbose)
     setwidth_verbose = *verbose;
     setwidth_initialized = 1;
     if(setwidth_verbose)
-        REprintf("setwidth 0.9-0 loaded\nCopyright (C) 2011 Jakson A. Aquino\n"); 
+        REprintf("setwidth 1.0-0 loaded\nCopyright (C) 2011 Jakson A. Aquino\n"); 
     setwidth_Set();
     signal(SIGWINCH, handle_winch);
 }
