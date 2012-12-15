@@ -1,3 +1,7 @@
+Version 1.0-1 (2012-12-15)
+
+  - Don't crash if R is busy (thanks to Simon Urbanek).
+
 Version 1.0-0 (2012-07-04)
 
    - Fix compiler warning (unused variable 'p').
