@@ -10,6 +10,7 @@
 static int setwidth_initialized = 0;
 static int setwidth_verbose = 0;
 static long oldcolwd = 0;
+static int fired = 0;
 static int ifd, ofd;
 
 
@@ -59,21 +60,23 @@ void setwidth_Set()
 }
 
 void handle_winch(int sig){
-    signal(SIGWINCH, SIG_IGN);
+    if(fired)
+        return;
+    fired = 1;
     char buf[16];
     *buf = 0;
-    if(write(ofd, buf, 16) <= 0)
+    if(write(ofd, buf, 1) <= 0)
         REprintf("setwidth error: write <= 0\n");
-    signal(SIGWINCH, handle_winch);
 }
 
 /* Code adapted from CarbonEL.
  * Thanks to Simon Urbanek for the suggestion on r-devel mailing list. */
 static void uih(void *data) {
-  char buf[16];
-  if(read(ifd, buf, 16) == 0)
-      REprintf("setwidth error: read = 0\n");
-  R_ToplevelExec(setwidth_Set, NULL);
+    char buf[16];
+    if(read(ifd, buf, 1) < 1)
+        REprintf("setwidth error: read < 1\n");
+    R_ToplevelExec(setwidth_Set, NULL);
+    fired = 0;
 }
 
 void setwidth_Start(int *verbose)
@@ -81,7 +84,7 @@ void setwidth_Start(int *verbose)
     setwidth_verbose = *verbose;
 
     if(setwidth_verbose)
-        REprintf("setwidth 1.0-1 loaded\nCopyright (C) 2012 Jakson A. Aquino\n"); 
+        REprintf("setwidth 1.0-2 loaded\nCopyright (C) 2012 Jakson A. Aquino\n"); 
 
     setwidth_Set();
     signal(SIGWINCH, handle_winch);

@@ -29,6 +29,16 @@ resized
   value of \code{options("width")}. The handle will not be activated if
   \code{interactive() == FALSE} or the value of the environment variable
   \samp{TERM} is either empty or \samp{"dumb"}.
+
+  To manually test whether the package is working properly on your system you
+  may repeatedly resize the terminal emulator and print a long vector, like
+  1:300.
+
+  To disable the automatic setting of \code{options("width")} do:
+
+  \preformatted{
+  detach("package:setwidth", unload = TRUE)
+  }
 }
 \author{
 Jakson Alves de Aquino <jalvesaq@gmail.com>, with some code copied from Vim.
