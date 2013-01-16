@@ -1,3 +1,7 @@
+Version 1.0-3 (2013-01-16)
+
+  - Remove input handler on namespace unload.
+
 Version 1.0-2 (2012-12-24)
 
   - Avoid setting the value of options("width") more than once (thanks for

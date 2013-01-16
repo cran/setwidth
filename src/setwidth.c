@@ -12,7 +12,7 @@ static int setwidth_verbose = 0;
 static long oldcolwd = 0;
 static int fired = 0;
 static int ifd, ofd;
-
+static InputHandler *ih;
 
 void setwidth_Set()
 {
@@ -84,7 +84,9 @@ void setwidth_Start(int *verbose)
     setwidth_verbose = *verbose;
 
     if(setwidth_verbose)
-        REprintf("setwidth 1.0-2 loaded\nCopyright (C) 2012 Jakson A. Aquino\n"); 
+        REprintf("setwidth 1.0-3 loaded\n"); 
+    if(setwidth_initialized)
+        return;
 
     setwidth_Set();
     signal(SIGWINCH, handle_winch);
@@ -93,9 +95,10 @@ void setwidth_Start(int *verbose)
     if(pipe(fds) == 0){
         ifd = fds[0];
         ofd = fds[1];
-        addInputHandler(R_InputHandlers, ifd, &uih, 32);
+        ih = addInputHandler(R_InputHandlers, ifd, &uih, 32);
     } else {
         REprintf("setwidth error: pipe != 0\n");
+        ih = NULL;
     }
 
     setwidth_initialized = 1;
@@ -105,5 +108,10 @@ void setwidth_Stop()
 {
     if(setwidth_initialized)
         signal(SIGWINCH, SIG_DFL);
+    if(ih){
+        removeInputHandler(&R_InputHandlers, ih);
+        close(ifd);
+        close(ofd);
+    }
     setwidth_initialized = 0;
 }
