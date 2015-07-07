@@ -84,7 +84,7 @@ void setwidth_Start(int *verbose)
     setwidth_verbose = *verbose;
 
     if(setwidth_verbose)
-        REprintf("setwidth 1.0-3 loaded\n"); 
+        REprintf("setwidth 1.0-4 loaded\n"); 
     if(setwidth_initialized)
         return;
 

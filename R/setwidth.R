@@ -8,19 +8,19 @@
 ###############################################################
 
 .onLoad <- function(libname, pkgname) {
-    library.dynam("setwidth", pkgname, libname, local = FALSE)
-
     if(is.null(getOption("setwidth.verbose")))
         options(setwidth.verbose = 0)
-
     termenv <- Sys.getenv("TERM")
-    if(interactive() && termenv != "" && termenv != "dumb"){
+    if(interactive() && termenv != "" && termenv != "dumb" && isatty(stdout())){
+        library.dynam("setwidth", pkgname, libname, local = FALSE)
         .C("setwidth_Start", as.integer(getOption("setwidth.verbose")), PACKAGE="setwidth")
     }
 }
 
 .onUnload <- function(libpath) {
-    .C("setwidth_Stop", PACKAGE="setwidth")
-    library.dynam.unload("setwidth", libpath)
+    if(is.loaded("setwidth_Stop", PACKAGE = "setwidth")){
+        .C("setwidth_Stop", PACKAGE = "setwidth")
+        library.dynam.unload("setwidth", libpath)
+    }
 }
 

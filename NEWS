@@ -1,3 +1,7 @@
+Version 1.0-4 (2015-07-07)
+
+  - Test if isatty(stdout()) before loading.
+
 Version 1.0-3 (2013-01-16)
 
   - Remove input handler on namespace unload.

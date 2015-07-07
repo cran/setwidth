@@ -1,7 +1,6 @@
-fb4af4c14f57d254b83a2311ecd20dc3 *DESCRIPTION
-6caf6a7b57a23941fc7dbcc777dff4db *LICENSE
+ecadc17ca37de35da0efccdfa80de68f *DESCRIPTION
 f35d47a92407a22853a43e613814c7ee *NAMESPACE
-b92a54e0f9297f7703d213732443afef *NEWS
-2283834923c5b50ae583abd12ebbc8b8 *R/setwidth.R
-f6509919584540e72b42b37d2237caf7 *man/setwidth-package.Rd
-ba8a4f31950cc99202006dc122a0f5bc *src/setwidth.c
+6427a97dfb6df7761445e9a0ec7cf253 *NEWS
+fb55e5966b5e80d2cee1fa520c6c4bd7 *R/setwidth.R
+81f0aaa080987fd10c57f348bdc65b6e *man/setwidth-package.Rd
+536b904bf6c10aee8317edae0807c72e *src/setwidth.c

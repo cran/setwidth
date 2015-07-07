@@ -41,7 +41,8 @@ resized
   }
 }
 \author{
-Jakson Alves de Aquino <jalvesaq@gmail.com>, with some code copied from Vim.
+Jakson Alves de Aquino \email{jalvesaq@gmail.com},
+with some code copied from Vim.
 }
 
 \seealso{
