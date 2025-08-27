@@ -1,3 +1,9 @@
+Version 1.1-0 (2025-08-20)
+
+  - minor changes to the C code for 
+    compatibility with >=4.5.1  
+  - change of package maintainer
+
 Version 1.0-4 (2015-07-07)
 
   - Test if isatty(stdout()) before loading.

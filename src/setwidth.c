@@ -1,4 +1,3 @@
-
 #include <R.h>  /* to include Rconfig.h */
 #include <Rinternals.h>
 #include <R_ext/eventloop.h>
@@ -14,7 +13,7 @@ static int fired = 0;
 static int ifd, ofd;
 static InputHandler *ih;
 
-void setwidth_Set()
+void setwidth_Set(void *unused) // Changed to take a void pointer
 {
     /* The code to get terminal width is from Vim source code (os_unix.c).
      * Try to get the current window size with an ioctl(). */
@@ -40,18 +39,19 @@ void setwidth_Set()
             oldcolwd = columns;
 
             /* From R-exts: Evaluating R expressions from C */
-            SEXP s, t;
-            PROTECT(t = s = allocList(2));
-            SET_TYPEOF(s, LANGSXP);
-            SETCAR(t, install("options"));
-            t = CDR(t);
-            SETCAR(t, ScalarInteger((int)columns));
-            SET_TAG(t, install("width"));
-            eval(s, R_GlobalEnv);
-            UNPROTECT(1);
+            /* Create integer value for width - replaces ScalarInteger in SETCAR */
+            SEXP width_val = PROTECT(ScalarInteger((int)columns));
+            /* Use lang2() API function instead of SET_TYPEOF() to create function call */
+            SEXP options_call = PROTECT(lang2(install("options"), width_val));
+            /* Set named argument "width" - same as original but on lang2() result */
+            SET_TAG(CDR(options_call), install("width"));
+            /* Evaluate the call - unchanged from original */
+            eval(options_call, R_GlobalEnv);
+            /* Unprotect both objects (was UNPROTECT(1) for single allocation) */
+            UNPROTECT(2);
 
             if(setwidth_verbose > 2)
-                Rprintf("setwidth: %d columns\n", columns);
+                Rprintf("setwidth: %ld columns\n", columns); // Changed format specifier to %ld
         }
     } else {
         if(setwidth_verbose > 1)
@@ -88,7 +88,7 @@ void setwidth_Start(int *verbose)
     if(setwidth_initialized)
         return;
 
-    setwidth_Set();
+    setwidth_Set(NULL); // Added NULL argument
     signal(SIGWINCH, handle_winch);
 
     int fds[2];

@@ -1,6 +1,7 @@
-ecadc17ca37de35da0efccdfa80de68f *DESCRIPTION
-f35d47a92407a22853a43e613814c7ee *NAMESPACE
-6427a97dfb6df7761445e9a0ec7cf253 *NEWS
+377c31e1a19da73d05e9b1d777dba330 *DESCRIPTION
+5b5087b948929c2924b52d101c3bd304 *NAMESPACE
+83652f7b8c1efa1ed7b7a53e4c1f9d93 *NEWS
 fb55e5966b5e80d2cee1fa520c6c4bd7 *R/setwidth.R
-81f0aaa080987fd10c57f348bdc65b6e *man/setwidth-package.Rd
-536b904bf6c10aee8317edae0807c72e *src/setwidth.c
+1b469dc3442370fd8693aeea6f1448e5 *man/setwidth-package.Rd
+7da5bde16fc8466bbba1bb62e60ba7c7 *src/registerDynamicSymbol.c
+ce4a6b09d967130404a4eb265064bc13 *src/setwidth.c

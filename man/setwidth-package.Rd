@@ -7,12 +7,10 @@ Automatically set the value of options("width") when the terminal emulator is
 resized
 }
 \description{
-  This package should not be used with Graphical User Interfaces, such as
-  Windows RGui, RStudio, RKward, JGR, Rcmdr and other interfaces which have
-  their own engine to display R output. The functions of this package only
-  work if R is compiled for Linux systems and it is running interactively in a
-  terminal emulator. The terminal emulator might have been called by a text
-  editor, such as Vim, Gedit, Kate or Geany.
+
+This package automatically sets \code{options("width")} when using R in terminal windows on OSX primarily (but on Unix-like OSes too) and resizing the terminal (e.g., iTerm2 on OSX). It may be useful if \code{options(setWidthOnResize=TRUE)} does not work properly for any reason.
+
+This package should not be used with graphical interfaces such as RStudio, RKward, JGR, Rcmdr, or any other interface that handles R output on its own, or when using R via remote sessions (like via a ssh connection, for example). The functions only work if R runs interactively in a terminal emulator. The terminal emulator may be called by a text editor like Vim, Gedit, Kate, or Geany. 
 }
 \details{
   The package will print information on the R Console if its
@@ -41,11 +39,15 @@ resized
   }
 }
 \author{
-Jakson Alves de Aquino \email{jalvesaq@gmail.com},
-with some code copied from Vim.
+Jakson Alves de Aquino and Dominique-Laurent Couturier
 }
 
 \seealso{
-  The package \pkg{colorout} colorizes R output when running in a terminal emulator.
+  The package \pkg{colorout} colorizes R output when running in a unix/osx terminal emulators.
+}
+
+\examples{
+options(setwidth.verbose = 1)
+print(getOption("width"))
 }
 \keyword{ package }
